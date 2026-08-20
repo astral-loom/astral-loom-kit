@@ -115,10 +115,10 @@ Each repo should maintain a mix — front-load Trivial/Medium issues for the fir
 - [x] Basic CI (lint + test on PR) set up for all three, ideally via GitHub Actions
 
 ### Phase 2 — Issue Backlog (Week 2–3)
-- [ ] Open 5–8 well-scoped issues per repo, spanning Trivial/Medium/High
-- [ ] Each issue has: clear description, acceptance criteria, relevant file/module pointers
-- [ ] Label issues consistently (`good first issue`, `help wanted`, complexity labels)
-- [ ] No duplicate or vague issues — every issue should be independently completable
+- [x] Open 5–8 well-scoped issues per repo, spanning Trivial/Medium/High
+- [x] Each issue has: clear description, acceptance criteria, relevant file/module pointers
+- [x] Label issues consistently (`good first issue`, `help wanted`, complexity labels)
+- [x] No duplicate or vague issues — every issue should be independently completable
 
 ### Phase 3 — Drips Wave Onboarding (Week 3)
 - [ ] Log into the Drips Wave app with GitHub
