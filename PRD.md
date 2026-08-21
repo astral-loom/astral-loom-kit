@@ -62,8 +62,8 @@ Astral Loom solves this by providing a maintained, well-documented, modular tool
 - Human-readable error mapping (`mapStellarError`)
 - Transaction helpers (`buildPayment`, `buildTrustline`)
 - Wallet adapter interface + Freighter implementation
-- **Status:** Initial scaffold complete (v0.1)
-- **Next:** Albedo adapter, xBull adapter, batch payment helper, path payment helper
+- **Status:** v0.2 complete (Freighter, Albedo, xBull adapters; basic, batch, and path payment helpers)
+- **Next:** Smart contract invocation helpers, asset issuance utilities
 
 ### 5.2 `astral-loom-cli`
 - `loom account create` — fund/create testnet accounts
@@ -71,8 +71,8 @@ Astral Loom solves this by providing a maintained, well-documented, modular tool
 - `loom xdr decode` — pretty-print XDR
 - `loom tx submit` — submit signed XDR transactions
 - Config file support for saved networks/keys
-- **Status:** Not yet started
-- **Next:** Scaffold CLI entry point (commander/yargs), implement `account create` and `xdr decode` first (fastest wins)
+- **Status:** Scaffolded; `account create` and `xdr decode` implemented (v0.1)
+- **Next:** `loom balance` (readable balance/trustline table view), `loom tx submit` (submit signed XDR)
 
 ### 5.3 `astral-loom-widgets`
 - `<BalanceCard />` — account balance display
@@ -80,8 +80,8 @@ Astral Loom solves this by providing a maintained, well-documented, modular tool
 - QR payment-request generator
 - Asset/trustline badge component
 - Storybook setup for previews
-- **Status:** Not yet started
-- **Next:** Scaffold React component library + Storybook, build `<BalanceCard />` first
+- **Status:** Scaffolded React library; `<BalanceCard />` implemented (v0.1)
+- **Next:** `<TransactionHistory />` (paginated table), QR payment-request generator, Asset badge component
 
 ---
 
@@ -105,7 +105,7 @@ Each repo should maintain a mix — front-load Trivial/Medium issues for the fir
 - [x] Scaffold `astral-loom-kit` (v0.1 complete: network config, error mapping, transaction helpers, Freighter adapter)
 - [x] Push `astral-loom-kit` to GitHub
 - [x] Scaffold `astral-loom-cli`
-- [ ] Scaffold `astral-loom-widgets`
+- [x] Scaffold `astral-loom-widgets`
 
 ### Phase 1 — Real Working Code (Weeks 1–2)
 - [x] Each repo has functional, tested, documented v0.1 code (not just boilerplate)
