@@ -1,39 +1,39 @@
-# Astral Loom Kit
+<div align="center">
+  <h1>🧵 Astral Loom Kit</h1>
+  <p><strong>Core TypeScript SDK wrapping @stellar/stellar-sdk into higher-level utilities.</strong></p>
+  
+  [![Build Status](https://github.com/astral-loom/astral-loom-kit/actions/workflows/ci.yml/badge.svg)](https://github.com/astral-loom/astral-loom-kit/actions/workflows/ci.yml)
+  [![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+</div>
 
-A unified integration toolkit for Stellar dApp developers. This package wraps the core `@stellar/stellar-sdk` into simpler, higher-level utilities so developers don't have to re-implement common boilerplate.
+---
 
-## Installation
+## 📖 Overview
 
-Install using npm:
+`astral-loom-kit` is a unified integration toolkit for Stellar dApp developers. It wraps the core `@stellar/stellar-sdk` into simpler, higher-level utilities so developers don't have to re-implement common boilerplate.
+
+### 🏗️ Architecture
+
+The SDK is split into several domain-specific helpers:
+
+1. **Wallets:** Unified adapters for Freighter, Albedo, and xBull.
+2. **Transactions:** Builders for common operations like payments, batch payments, path payments, and trustlines.
+3. **Networks:** Config presets for testnet, mainnet, and futurenet.
+4. **Errors:** Human-readable error mapping for cryptic Horizon/SDK errors.
+
+---
+
+## 🚀 Quick Start
+
+### 1. Installation
+
+Install using npm or yarn:
 
 ```bash
 npm install astral-loom-kit @stellar/stellar-sdk
 ```
 
-Or using yarn:
-
-```bash
-yarn add astral-loom-kit @stellar/stellar-sdk
-```
-
-## Features and Quick Start
-
-### 1. Network Utilities
-
-Easily switch between Stellar networks.
-
-```typescript
-import { getNetwork, switchNetwork } from 'astral-loom-kit';
-
-// Get network configuration
-const config = getNetwork('testnet');
-console.log(config.url); // https://horizon-testnet.stellar.org
-
-// Get a configured Horizon Server instance
-const server = switchNetwork('testnet');
-```
-
-### 2. Connect a Wallet (Freighter, Albedo, or xBull)
+### 2. Connect a Wallet
 
 Connect to a supported wallet extension and sign transactions.
 
@@ -56,7 +56,7 @@ async function connectWallet() {
 Construct a payment transaction without signing or submitting it yet.
 
 ```typescript
-import { buildPayment } from 'astral-loom-kit';
+import { buildPayment, buildBatchPayment, buildPathPayment } from 'astral-loom-kit';
 
 const transaction = buildPayment({
   source: 'GA...YOUR_ACCOUNT_ID',
@@ -68,75 +68,23 @@ const transaction = buildPayment({
 });
 ```
 
-### 4. Build Batch & Path Payments
+---
 
-Easily build more complex payment structures.
+## 🤝 Community & Maintainers
 
-```typescript
-import { buildBatchPayment, buildPathPayment } from 'astral-loom-kit';
+Join the discussion and get support:
+* **Community Link**: [Stellar Developer Discord](https://discord.gg/5aprtMSyR)
 
-// Batch Payment
-const batchTx = buildBatchPayment({
-  source: 'GA...YOUR_ACCOUNT_ID',
-  sourceSequence: '1234567890',
-  assetCode: 'XLM',
-  destinations: [
-    { destination: 'GB...DEST1', amount: '10' },
-    { destination: 'GC...DEST2', amount: '5' }
-  ],
-  network: 'testnet',
-});
+| Maintainer | Role |
+|------------|------|
+| Temmy2026 | Core Developer |
 
-// Path Payment
-const pathTx = buildPathPayment({
-  source: 'GA...YOUR_ACCOUNT_ID',
-  sourceSequence: '1234567890',
-  sendAssetCode: 'USDC',
-  sendAssetIssuer: 'GB...ISSUER_ID',
-  sendMax: '10',
-  destination: 'GD...DESTINATION_ID',
-  destAssetCode: 'XLM',
-  destAmount: '50',
-  network: 'testnet',
-});
-```
+---
 
-### 5. Build a Trustline Transaction
+## 🛠️ Contributing
 
-Construct a change trust operation to accept a specific asset.
+We welcome contributions! Please see our [CONTRIBUTING.md](CONTRIBUTING.md) for details on how to get started.
 
-```typescript
-import { buildTrustline } from 'astral-loom-kit';
+### 🧑‍💻 Contributors
 
-const transaction = buildTrustline({
-  source: 'GA...YOUR_ACCOUNT_ID',
-  sourceSequence: '1234567890',
-  assetCode: 'USDC',
-  assetIssuer: 'GB...ISSUER_ID',
-  network: 'testnet',
-});
-```
-
-### 5. Error Handling
-
-Map raw Horizon or Stellar SDK errors into human-readable messages.
-
-```typescript
-import { mapStellarError } from 'astral-loom-kit';
-
-try {
-  // some stellar operation
-} catch (error) {
-  const mapped = mapStellarError(error);
-  console.log(mapped.code); // e.g. 'INSUFFICIENT_BALANCE'
-  console.error(mapped.message); // Human-readable message
-}
-```
-
-## Contributing
-
-See [CONTRIBUTING.md](./CONTRIBUTING.md) for details on how to set up the project locally and contribute.
-
-## License
-
-MIT License.
+[![Contributors](https://contrib.rocks/image?repo=astral-loom/astral-loom-kit)](https://github.com/astral-loom/astral-loom-kit/graphs/contributors)
