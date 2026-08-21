@@ -33,14 +33,17 @@ console.log(config.url); // https://horizon-testnet.stellar.org
 const server = switchNetwork('testnet');
 ```
 
-### 2. Connect a Wallet (Freighter)
+### 2. Connect a Wallet (Freighter, Albedo, or xBull)
 
-Connect to the Freighter wallet extension and sign transactions.
+Connect to a supported wallet extension and sign transactions.
 
 ```typescript
-import { FreighterAdapter } from 'astral-loom-kit';
+import { FreighterAdapter, AlbedoAdapter, XBullAdapter } from 'astral-loom-kit';
 
+// You can use any of the supported adapters
 const adapter = new FreighterAdapter();
+// const adapter = new AlbedoAdapter();
+// const adapter = new XBullAdapter();
 
 async function connectWallet() {
   const publicKey = await adapter.connect();
@@ -65,7 +68,40 @@ const transaction = buildPayment({
 });
 ```
 
-### 4. Build a Trustline Transaction
+### 4. Build Batch & Path Payments
+
+Easily build more complex payment structures.
+
+```typescript
+import { buildBatchPayment, buildPathPayment } from 'astral-loom-kit';
+
+// Batch Payment
+const batchTx = buildBatchPayment({
+  source: 'GA...YOUR_ACCOUNT_ID',
+  sourceSequence: '1234567890',
+  assetCode: 'XLM',
+  destinations: [
+    { destination: 'GB...DEST1', amount: '10' },
+    { destination: 'GC...DEST2', amount: '5' }
+  ],
+  network: 'testnet',
+});
+
+// Path Payment
+const pathTx = buildPathPayment({
+  source: 'GA...YOUR_ACCOUNT_ID',
+  sourceSequence: '1234567890',
+  sendAssetCode: 'USDC',
+  sendAssetIssuer: 'GB...ISSUER_ID',
+  sendMax: '10',
+  destination: 'GD...DESTINATION_ID',
+  destAssetCode: 'XLM',
+  destAmount: '50',
+  network: 'testnet',
+});
+```
+
+### 5. Build a Trustline Transaction
 
 Construct a change trust operation to accept a specific asset.
 

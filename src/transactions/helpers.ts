@@ -82,3 +82,119 @@ export function buildTrustline(params: BuildTrustlineParams) {
     throw mapStellarError(error);
   }
 }
+
+export interface BatchPaymentDestination {
+  destination: string;
+  amount: string;
+}
+
+export interface BuildBatchPaymentParams {
+  source: string;
+  sourceSequence: string;
+  assetCode: string;
+  assetIssuer?: string;
+  destinations: BatchPaymentDestination[];
+  network: NetworkName;
+  fee?: string;
+}
+
+export function buildBatchPayment(params: BuildBatchPaymentParams) {
+  try {
+    const { source, sourceSequence, assetCode, assetIssuer, destinations, network, fee } = params;
+    const networkConfig = getNetwork(network);
+
+    const asset =
+      assetCode.toUpperCase() === 'XLM' && !assetIssuer
+        ? Asset.native()
+        : new Asset(assetCode, assetIssuer!);
+
+    const account = new Account(source, sourceSequence);
+    const builder = new TransactionBuilder(account, {
+      fee: fee || BASE_FEE,
+      networkPassphrase: networkConfig.networkPassphrase,
+    });
+
+    for (const dest of destinations) {
+      builder.addOperation(
+        Operation.payment({
+          destination: dest.destination,
+          asset,
+          amount: dest.amount,
+        }),
+      );
+    }
+
+    return builder.setTimeout(0).build();
+  } catch (error) {
+    throw mapStellarError(error);
+  }
+}
+
+export interface BuildPathPaymentParams {
+  source: string;
+  sourceSequence: string;
+  sendAssetCode: string;
+  sendAssetIssuer?: string;
+  sendMax: string;
+  destination: string;
+  destAssetCode: string;
+  destAssetIssuer?: string;
+  destAmount: string;
+  path?: Asset[];
+  network: NetworkName;
+  fee?: string;
+}
+
+export function buildPathPayment(params: BuildPathPaymentParams) {
+  try {
+    const {
+      source,
+      sourceSequence,
+      sendAssetCode,
+      sendAssetIssuer,
+      sendMax,
+      destination,
+      destAssetCode,
+      destAssetIssuer,
+      destAmount,
+      path,
+      network,
+      fee,
+    } = params;
+    
+    const networkConfig = getNetwork(network);
+
+    const sendAsset =
+      sendAssetCode.toUpperCase() === 'XLM' && !sendAssetIssuer
+        ? Asset.native()
+        : new Asset(sendAssetCode, sendAssetIssuer!);
+
+    const destAsset =
+      destAssetCode.toUpperCase() === 'XLM' && !destAssetIssuer
+        ? Asset.native()
+        : new Asset(destAssetCode, destAssetIssuer!);
+
+    const account = new Account(source, sourceSequence);
+
+    const transaction = new TransactionBuilder(account, {
+      fee: fee || BASE_FEE,
+      networkPassphrase: networkConfig.networkPassphrase,
+    })
+      .addOperation(
+        Operation.pathPaymentStrictReceive({
+          sendAsset,
+          sendMax,
+          destination,
+          destAsset,
+          destAmount,
+          path: path || [],
+        }),
+      )
+      .setTimeout(0)
+      .build();
+
+    return transaction;
+  } catch (error) {
+    throw mapStellarError(error);
+  }
+}
