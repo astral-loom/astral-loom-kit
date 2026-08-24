@@ -70,7 +70,15 @@ const transaction = buildPayment({
 
 ---
 
+## 💡 Examples
+
+We provide runnable examples to help you get started quickly. Check out the [examples/](examples/) directory, including a [simple payment script](examples/simple-payment/) demonstrating how to connect to networks, build transactions, and map errors.
+
+---
+
 ## 🤝 Community & Maintainers
+
+We are committed to fostering a welcoming environment. Please read our [Code of Conduct](CODE_OF_CONDUCT.md) before participating. If you discover a vulnerability, please review our [Security Policy](SECURITY.md) for reporting instructions.
 
 Join the discussion and get support:
 * **Community Link**: [Stellar Developer Discord](https://discord.gg/5aprtMSyR)
