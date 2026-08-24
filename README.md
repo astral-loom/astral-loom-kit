@@ -36,7 +36,7 @@ flowchart TD
     Stellar --- Soroban
     
     %% Official SDK
-    SDK((@stellar/stellar-sdk))
+    SDK(("@stellar/stellar-sdk"))
     Horizon --> SDK
     Soroban --> SDK
 
