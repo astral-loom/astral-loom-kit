@@ -1,8 +1,17 @@
-import albedo from '@albedo-link/intent';
+
 import { Transaction } from '@stellar/stellar-sdk';
-import { isConnected, requestAccess, getAddress, signTransaction } from '@stellar/freighter-api';
+import * as freighterIntent from '@stellar/freighter-api';
+import type { AlbedoIntent } from '@albedo-link/intent';
+const freighter = (freighterIntent as unknown as { default: typeof freighterIntent }).default || freighterIntent;
+const { isConnected, requestAccess, getAddress, signTransaction } = freighter;
 import { NetworkName, getNetwork } from '../network';
 import { mapStellarError } from '../errors';
+
+interface XBullSDK {
+  connect(options: { canRequestPublicKey: boolean; canRequestSign: boolean }): Promise<string>;
+  getPublicKey(): Promise<string | null>;
+  signXDR(xdr: string, options: { network: string }): Promise<string>;
+}
 
 /**
  * Interface for Wallet Adapters.
@@ -71,8 +80,14 @@ export class FreighterAdapter implements WalletAdapter {
 }
 
 export class AlbedoAdapter implements WalletAdapter {
+  private async getAlbedo(): Promise<AlbedoIntent> {
+    const albedoIntent = await import('@albedo-link/intent');
+    return (albedoIntent as unknown as { default: AlbedoIntent }).default || (albedoIntent as unknown as AlbedoIntent);
+  }
+
   async connect(): Promise<string> {
     try {
+      const albedo = await this.getAlbedo();
       const response = await albedo.publicKey({});
       return response.pubkey;
     } catch (error) {
@@ -87,6 +102,7 @@ export class AlbedoAdapter implements WalletAdapter {
 
   async signTransaction(transaction: Transaction, network: NetworkName): Promise<string> {
     try {
+      const albedo = await this.getAlbedo();
       const networkConfig = getNetwork(network);
       const response = await albedo.tx({
         xdr: transaction.toXDR(),
@@ -105,8 +121,8 @@ export class AlbedoAdapter implements WalletAdapter {
 }
 
 export class XBullAdapter implements WalletAdapter {
-  private get xBull() {
-    return (window as any).xBullSDK;
+  private get xBull(): XBullSDK | undefined {
+    return (window as Window & { xBullSDK?: XBullSDK }).xBullSDK;
   }
 
   async connect(): Promise<string> {
