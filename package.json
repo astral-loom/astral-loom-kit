@@ -1,10 +1,10 @@
 {
   "name": "astral-loom-kit",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "A unified integration toolkit for Stellar dApp developers.",
-  "main": "./dist/index.js",
-  "module": "./dist/index.mjs",
-  "types": "./dist/index.d.ts",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
   "scripts": {
     "build": "tsup",
     "test": "vitest run",
@@ -22,10 +22,14 @@
     "dapp",
     "crypto",
     "blockchain",
-    "wallet"
+    "wallet",
+    "typescript"
   ],
-  "author": "",
+  "author": "Temmy2026",
   "license": "MIT",
+  "engines": {
+    "node": ">=20.0.0"
+  },
   "dependencies": {
     "@albedo-link/intent": "^0.13.0",
     "@stellar/freighter-api": "^6.0.1",
@@ -39,5 +43,11 @@
     "typescript": "^5.0.0",
     "typescript-eslint": "^8.67.0",
     "vitest": "^2.0.0"
+  },
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public"
   }
 }
