@@ -1,6 +1,7 @@
 {
   "name": "simple-payment",
   "version": "1.0.0",
+  "type": "module",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -9,5 +10,13 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "@stellar/stellar-sdk": "^17.0.0",
+    "astral-loom-kit": "file:../.."
+  },
+  "devDependencies": {
+    "ts-node": "^10.9.2",
+    "typescript": "^7.0.2"
+  }
 }

@@ -1,1 +1,1 @@
-{"compilerOptions":{"module":"commonjs","target":"es6","moduleResolution":"node","skipLibCheck":true}}
+{"compilerOptions":{"module":"node16","target":"es2022","moduleResolution":"node16","skipLibCheck":true}}
