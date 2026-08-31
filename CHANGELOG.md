@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 - Initial release
-- Wallet adapters for Freighter, Albedo, and xBull (`FreighterAdapter`, `AlbedoAdapter`, `XBullAdapter`)
-- Transaction builders for common operations (`buildPayment`, `buildBatchPayment`, `buildPathPayment`, and trustlines)
+- Freighter wallet adapter (`WalletAdapter` interface + `FreighterAdapter` implementation)
+- Transaction helpers for common operations (`buildPayment` and `buildTrustline`)
 - Network configuration presets for testnet, mainnet, and futurenet
 - Human-readable error mapping utilities for cryptic Horizon/SDK errors
