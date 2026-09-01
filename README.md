@@ -19,7 +19,7 @@
 
 The SDK is split into several domain-specific helpers:
 
-1. **Wallets:** Unified adapters for Freighter, Albedo, and xBull.
+1. **Wallets:** Unified adapters for Freighter and Albedo.
 2. **Transactions:** Builders for common operations like payments, batch payments, path payments, and trustlines.
 3. **Networks:** Config presets for testnet, mainnet, and futurenet.
 4. **Errors:** Human-readable error mapping for cryptic Horizon/SDK errors.
@@ -57,7 +57,7 @@ flowchart TD
     Kit --> Widgets
 
     %% Wallets
-    Wallets[Wallet Extensions<br/>Freighter, Albedo, xBull]
+    Wallets[Wallet Extensions<br/>Freighter, Albedo]
     Wallets -.->|WalletAdapter| Kit
 
     %% End Users
@@ -91,12 +91,11 @@ npm install astral-loom-kit @stellar/stellar-sdk
 Connect to a supported wallet extension and sign transactions.
 
 ```typescript
-import { FreighterAdapter, AlbedoAdapter, XBullAdapter } from 'astral-loom-kit';
+import { FreighterAdapter, AlbedoAdapter } from 'astral-loom-kit';
 
 // You can use any of the supported adapters
 const adapter = new FreighterAdapter();
 // const adapter = new AlbedoAdapter();
-// const adapter = new XBullAdapter();
 
 async function connectWallet() {
   const publicKey = await adapter.connect();
