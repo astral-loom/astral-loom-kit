@@ -77,6 +77,19 @@ flowchart TD
 
 ---
 
+## Why Astral Loom Kit?
+
+`@stellar/stellar-sdk` gives you the primitives — Astral Loom Kit gives you the workflow:
+
+- **One wallet interface, not three.** `FreighterAdapter` and `AlbedoAdapter` share a common `WalletAdapter` interface, so you write wallet-connection code once instead of branching per wallet.
+- **Errors you can actually read.** Raw Horizon errors like `op_underfunded` or `tx_bad_seq` get mapped to plain-language messages and typed error codes via `mapStellarError`.
+- **Less transaction boilerplate.** `buildPayment`, `buildTrustline`, `buildBatchPayment`, and `buildPathPayment` wrap the multi-step `TransactionBuilder` pattern into single function calls with clear, typed parameters.
+- **Network switching without hardcoded URLs.** `getNetwork('testnet' | 'mainnet' | 'futurenet')` gives you the right Horizon URL and network passphrase every time, no copy-pasted constants.
+
+You still have full access to the underlying `@stellar/stellar-sdk` for anything this package doesn't cover yet — Astral Loom Kit is a thin layer on top, not a replacement.
+
+---
+
 ## 🚀 Quick Start
 
 ### 1. Installation
