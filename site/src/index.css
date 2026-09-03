@@ -21,8 +21,8 @@
   --text-dim: #6b6590;
   --radius: 12px;
   --radius-lg: 16px;
-  --sans: 'Roboto', 'Helvetica Neue', Arial, sans-serif;
-  --mono: 'Courier New', Courier, monospace;
+  --sans: 'Outfit', 'Helvetica Neue', Arial, sans-serif;
+  --mono: 'Fira Code', Courier, monospace;
 }
 
 html {
