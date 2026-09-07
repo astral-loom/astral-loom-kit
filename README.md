@@ -6,6 +6,7 @@
   [![bundle size](https://img.shields.io/bundlephobia/minzip/astral-loom-kit)](https://bundlephobia.com/package/astral-loom-kit)
   [![CI](https://github.com/astral-loom/astral-loom-kit/actions/workflows/ci.yml/badge.svg)](https://github.com/astral-loom/astral-loom-kit/actions/workflows/ci.yml)
   [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+  [![Telegram](https://img.shields.io/badge/Telegram-Join%20Chat-2CA5E0?logo=telegram&logoColor=white)](https://t.me/+G91vPNmPa-diM2U8)
   
   🌐 Website: https://astral-loom-site.vercel.app
 </div>
@@ -148,6 +149,7 @@ We are committed to fostering a welcoming environment. Please read our [Code of 
 
 Join the discussion and get support:
 * **Community Link**: [Stellar Developer Discord](https://discord.gg/5aprtMSyR)
+* **Telegram**: [Join our Telegram group](https://t.me/+G91vPNmPa-diM2U8) to ask questions, share what you're building, or get help contributing.
 
 | Maintainer | Role |
 |------------|------|
