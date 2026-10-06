@@ -87,7 +87,7 @@ flowchart TD
 - **Less transaction boilerplate.** `buildPayment`, `buildTrustline`, `buildBatchPayment`, and `buildPathPayment` wrap the multi-step `TransactionBuilder` pattern into single function calls with clear, typed parameters.
 - **Network switching without hardcoded URLs.** `getNetwork('testnet' | 'mainnet' | 'futurenet')` gives you the right Horizon URL and network passphrase every time, no copy-pasted constants.
 
-You still have full access to the underlying `@stellar/stellar-sdk` for anything this package doesn't cover yet — Astral Loom Kit is a thin layer on top, not a replacement.
+You still have full access to the underlying `@stellar/stellar-sdk` for anything this package doesn't cover yet — Astral Loom Kit provides rich abstractions for Stellar and Soroban smart contracts, not a replacement.
 
 ---
 
@@ -131,6 +131,24 @@ const transaction = buildPayment({
   destination: 'GB...DESTINATION_ID',
   assetCode: 'XLM',
   amount: '10.5',
+  network: 'testnet',
+});
+```
+
+### 4. Soroban Smart Contracts (NEW!)
+
+Astral Loom Kit now provides built-in utilities for interacting with Soroban smart contracts, reducing the complexity of simulating and submitting contract calls.
+
+```typescript
+import { buildInvokeContractTx, jsToScVal } from 'astral-loom-kit';
+
+// Construct a Soroban contract invocation transaction
+const tx = buildInvokeContractTx({
+  contractId: 'C...',
+  method: 'increment',
+  args: [jsToScVal(1)],
+  source: 'GA...',
+  sourceSequence: '1234567890',
   network: 'testnet',
 });
 ```

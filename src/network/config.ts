@@ -5,6 +5,7 @@ export type NetworkName = 'mainnet' | 'testnet' | 'futurenet';
 export interface NetworkConfig {
   name: NetworkName;
   url: string;
+  rpcUrl: string;
   networkPassphrase: string;
 }
 
@@ -12,16 +13,19 @@ export const NETWORK_PRESETS: Record<NetworkName, NetworkConfig> = {
   mainnet: {
     name: 'mainnet',
     url: 'https://horizon.stellar.org',
+    rpcUrl: 'https://soroban-rpc.mainnet.stellar.org',
     networkPassphrase: 'Public Global Stellar Network ; September 2015',
   },
   testnet: {
     name: 'testnet',
     url: 'https://horizon-testnet.stellar.org',
+    rpcUrl: 'https://soroban-rpc.testnet.stellar.org',
     networkPassphrase: 'Test SDF Network ; September 2015',
   },
   futurenet: {
     name: 'futurenet',
     url: 'https://horizon-futurenet.stellar.org',
+    rpcUrl: 'https://rpc-futurenet.stellar.org',
     networkPassphrase: 'Test SDF Future Network ; Fall 2022',
   },
 };
