@@ -42,6 +42,6 @@ export function buildInvokeContractTx(params: InvokeContractParams) {
 /**
  * Helper to convert common JS types to ScVal
  */
-export function jsToScVal(val: any): xdr.ScVal {
+export function jsToScVal(val: unknown): xdr.ScVal {
   return nativeToScVal(val);
 }
