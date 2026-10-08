@@ -13,10 +13,10 @@ describe('Soroban Helpers', () => {
 
   it('should build a contract invocation transaction', () => {
     const tx = buildInvokeContractTx({
-      contractId: 'CACQQJZZWWQ3U6TYTNG46J6D6Z7XUYZN32I5V6UUTP6R457N75XYIWTF',
+      contractId: 'CAZUSJDKMQDCPW2Z4ZTBEH5DP3Q5LVJXODP6OGXUVB2XDAEK4BPVAZGS',
       method: 'increment',
       args: [jsToScVal(1)],
-      source: 'GA6L7D63QJYYZBYCDBYQYJ4XN2O4S7JFYR53UKN673F6N5B2F5C6Y47X',
+      source: 'GA5ZSEJYB37JRC5AVCIA5MOP4RHTM335X2KGX3IHOJAPP5RE34K4KZVN',
       sourceSequence: '100',
       network: 'testnet',
     });
