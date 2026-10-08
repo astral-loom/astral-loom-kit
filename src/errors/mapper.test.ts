@@ -103,4 +103,10 @@ describe('Error Mapper', () => {
     const mapped4 = mapStellarError(error4);
     expect(mapped4.code).toBe(StellarErrorCode.BAD_SEQUENCE);
   });
+
+  it('should surface the original message for unrecognised errors', () => {
+    const mapped = mapStellarError(new Error('accountId is invalid'));
+    expect(mapped.code).toBe(StellarErrorCode.UNKNOWN_ERROR);
+    expect(mapped.message).toBe('accountId is invalid');
+  });
 });

@@ -75,5 +75,11 @@ export function mapStellarError(error: any): MappedError {
     }
   }
 
+  // A generic message hid real SDK failures such as "accountId is invalid", so keep
+  // the underlying text whenever nothing was recognised.
+  if (result.code === StellarErrorCode.UNKNOWN_ERROR && error.message) {
+    result.message = error.message;
+  }
+
   return result;
 }
