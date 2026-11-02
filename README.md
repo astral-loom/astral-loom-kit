@@ -22,6 +22,13 @@
 The SDK is split into several domain-specific helpers:
 
 1. **Wallets:** Unified adapters for Freighter and Albedo.
+   > **xBull status:** no xBull adapter ships in `src/` today. A previous
+   > `XBullAdapter` was removed from `main` pending a tested reimplementation
+   > (see [CHANGELOG.md](CHANGELOG.md)). The correct SDK package is
+   > [`@creit.tech/xbull-wallet-connect`](https://www.npmjs.com/package/@creit.tech/xbull-wallet-connect) —
+   > the `@creit-tech/xbull-app-sdk` name referenced in older drafts does not
+   > exist on npm. Contributions implementing `WalletAdapter` against the
+   > correct package are welcome; see [CONTRIBUTING.md](CONTRIBUTING.md).
 2. **Transactions:** Builders for common operations like payments, batch payments, path payments, and trustlines.
 3. **Networks:** Config presets for testnet, mainnet, and futurenet.
 4. **Errors:** Human-readable error mapping for cryptic Horizon/SDK errors.

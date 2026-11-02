@@ -26,7 +26,7 @@ export const NETWORK_PRESETS: Record<NetworkName, NetworkConfig> = {
     name: 'futurenet',
     url: 'https://horizon-futurenet.stellar.org',
     rpcUrl: 'https://rpc-futurenet.stellar.org',
-    networkPassphrase: 'Test SDF Future Network ; Fall 2022',
+    networkPassphrase: 'Test SDF Future Network ; October 2022',
   },
 };
 

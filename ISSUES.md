@@ -32,7 +32,8 @@ Add a wallet adapter for xBull so dApps can seamlessly integrate it using our st
 
 **Acceptance Criteria:**
 - Create `src/wallets/xbull.ts` implementing the `WalletAdapter` interface.
-- Implement `connect()`, `getPublicKey()`, `signTransaction()`, and `isConnected()` using `@creit-tech/xbull-app-sdk`.
+- Implement `connect()`, `getPublicKey()`, `signTransaction()`, and `isConnected()` using `@creit.tech/xbull-wallet-connect`.
+  > **Note:** an earlier draft of this issue named the package `@creit-tech/xbull-app-sdk`, which returns 404 on npm. Use `@creit.tech/xbull-wallet-connect`. No `src/wallets/xbull.ts` exists on `main` — a previous `XBullAdapter` was removed pending a tested reimplementation (see `CHANGELOG.md`).
 - Export the `XBullAdapter` in `src/wallets/index.ts`.
 - Ensure tests run successfully and the code passes linting.
 
