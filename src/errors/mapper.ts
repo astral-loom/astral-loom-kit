@@ -4,6 +4,9 @@ export enum StellarErrorCode {
   BAD_AUTH = 'BAD_AUTH',
   TRANSACTION_MALFORMED = 'TRANSACTION_MALFORMED',
   BAD_SEQUENCE = 'BAD_SEQUENCE',
+  SIMULATION_FAILED = 'SIMULATION_FAILED',
+  RESOURCE_EXHAUSTED = 'RESOURCE_EXHAUSTED',
+  RESTORE_REQUIRED = 'RESTORE_REQUIRED',
   UNKNOWN_ERROR = 'UNKNOWN_ERROR',
 }
 
@@ -14,7 +17,7 @@ export interface MappedError {
 }
 
 /**
- * Maps a raw Horizon or Stellar SDK error to a human-readable message and standard error code.
+ * Maps a raw Horizon or Stellar SDK / Soroban error to a human-readable message and standard error code.
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function mapStellarError(error: any): MappedError {
@@ -25,6 +28,25 @@ export function mapStellarError(error: any): MappedError {
   };
 
   if (!error) return result;
+
+  // Check Soroban simulation error payloads
+  const simulationError = error.error || error.simulation?.error || error.result?.error;
+  if (typeof simulationError === 'string') {
+    const simLower = simulationError.toLowerCase();
+    if (simLower.includes('restore') || simLower.includes('restorepreamble') || simLower.includes('expired')) {
+      result.code = StellarErrorCode.RESTORE_REQUIRED;
+      result.message = 'Soroban contract data has expired and must be restored before invocation.';
+      return result;
+    }
+    if (simLower.includes('resource') || simLower.includes('budget') || simLower.includes('exceeded') || simLower.includes('cpu limit')) {
+      result.code = StellarErrorCode.RESOURCE_EXHAUSTED;
+      result.message = 'Soroban execution exceeded compute or memory resource limits.';
+      return result;
+    }
+    result.code = StellarErrorCode.SIMULATION_FAILED;
+    result.message = `Soroban simulation failed: ${simulationError}`;
+    return result;
+  }
 
   // Check Horizon response errors
   if (error.response && error.response.data) {
@@ -60,7 +82,16 @@ export function mapStellarError(error: any): MappedError {
   } else if (error.message) {
     // Basic string matching as fallback
     const msg = error.message.toLowerCase();
-    if (msg.includes('insufficient balance') || msg.includes('underfunded')) {
+    if (msg.includes('restore') || msg.includes('expired') || msg.includes('restorepreamble')) {
+      result.code = StellarErrorCode.RESTORE_REQUIRED;
+      result.message = 'Soroban contract data has expired and must be restored before invocation.';
+    } else if (msg.includes('resource limit') || msg.includes('budget exceeded') || msg.includes('exceeded compute')) {
+      result.code = StellarErrorCode.RESOURCE_EXHAUSTED;
+      result.message = 'Soroban execution exceeded compute or memory resource limits.';
+    } else if (msg.includes('simulation failed') || msg.includes('hosterror') || msg.includes('contract error')) {
+      result.code = StellarErrorCode.SIMULATION_FAILED;
+      result.message = error.message;
+    } else if (msg.includes('insufficient balance') || msg.includes('underfunded')) {
       result.code = StellarErrorCode.INSUFFICIENT_BALANCE;
       result.message = 'Insufficient balance to complete this operation.';
     } else if (msg.includes('no trust') || msg.includes('trustline not established')) {

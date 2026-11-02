@@ -104,6 +104,37 @@ describe('Error Mapper', () => {
     expect(mapped4.code).toBe(StellarErrorCode.BAD_SEQUENCE);
   });
 
+  it('should map Soroban simulation failure errors', () => {
+    const error1 = { error: 'HostError: Error(Contract, #123)' };
+    const mapped1 = mapStellarError(error1);
+    expect(mapped1.code).toBe(StellarErrorCode.SIMULATION_FAILED);
+    expect(mapped1.message).toContain('HostError');
+
+    const error2 = new Error('Simulation failed with contract error');
+    const mapped2 = mapStellarError(error2);
+    expect(mapped2.code).toBe(StellarErrorCode.SIMULATION_FAILED);
+  });
+
+  it('should map Soroban resource exhaustion errors', () => {
+    const error1 = { error: 'Exceeded budget: cpu limit exceeded' };
+    const mapped1 = mapStellarError(error1);
+    expect(mapped1.code).toBe(StellarErrorCode.RESOURCE_EXHAUSTED);
+
+    const error2 = new Error('Resource limit exceeded during invocation');
+    const mapped2 = mapStellarError(error2);
+    expect(mapped2.code).toBe(StellarErrorCode.RESOURCE_EXHAUSTED);
+  });
+
+  it('should map Soroban restore required errors', () => {
+    const error1 = { error: 'restorePreamble required because entry has expired' };
+    const mapped1 = mapStellarError(error1);
+    expect(mapped1.code).toBe(StellarErrorCode.RESTORE_REQUIRED);
+
+    const error2 = new Error('Contract entry expired and requires restore');
+    const mapped2 = mapStellarError(error2);
+    expect(mapped2.code).toBe(StellarErrorCode.RESTORE_REQUIRED);
+  });
+
   it('should surface the original message for unrecognised errors', () => {
     const mapped = mapStellarError(new Error('accountId is invalid'));
     expect(mapped.code).toBe(StellarErrorCode.UNKNOWN_ERROR);
