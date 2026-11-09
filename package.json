@@ -40,7 +40,7 @@
     "@types/node": "^26.4.0",
     "eslint": "^10.9.1",
     "prettier": "^3.0.0",
-    "tsup": "^8.0.0",
+    "tsup": "^9.0.0",
     "typescript": "^5.0.0",
     "typescript-eslint": "^8.67.0",
     "vitest": "^4.1.11"
